@@ -33,9 +33,9 @@ def random_response(message, history):
                 audio = False
                 return f'[info]语音已关闭'
             else:
-                return f'未知命令'
+                return f'[info]未知命令'
         if 'ciallo' in message or 'Ciallo' in message or 'CIALLO' in message:
-            return f'来人把柚子厨叉出去'
+            return f'[info]来人把柚子厨叉出去'
         #msg = ernie_bot.get_msg(message,prompt='neko')#旧接口
         #msg = ernie_bot.reply(message,prompt='neko',use_web=True)
         if config['model'] == 'deepseek':

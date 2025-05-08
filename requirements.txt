@@ -1,0 +1,6 @@
+gradio
+pygame
+edge-tts
+live2d-py
+asyncio
+librosa

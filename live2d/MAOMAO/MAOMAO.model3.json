@@ -1,0 +1,26 @@
+{
+	"Version": 3,
+	"FileReferences": {
+		"Moc": "MAOMAO.moc3",
+		"Textures": [
+			"MAOMAO.4096/texture_00.png"
+		],
+		"Physics": "MAOMAO.physics3.json",
+		"DisplayInfo": "MAOMAO.cdi3.json"
+	},
+	"Groups": [
+		{
+			"Target": "Parameter",
+			"Name": "LipSync",
+			"Ids": []
+		},
+		{
+			"Target": "Parameter",
+			"Name": "EyeBlink",
+			"Ids": [
+				"ParamEyeROpen",
+				"ParamEyeLOpen"
+			]
+		}
+	]
+}

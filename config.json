@@ -1,0 +1,11 @@
+{
+    "model":"ernie_bot",
+    "model_list":[
+        "deepseek",
+        "ernie_bot"
+    ],
+    "ERNIE_API_KEY":"",
+    "ERNIE_SECRET_KEY":"",
+    "DEEPSEEK_KEY":"",
+    "model_path":".\\live2d\\MAOMAO\\MAOMAO.model3.json"
+}

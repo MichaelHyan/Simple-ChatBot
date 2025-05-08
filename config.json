@@ -5,8 +5,8 @@
         "ernie_bot"
     ],
     "prompt":"neko_plus",
-    "ERNIE_API_KEY":"koIaCwMY3QvGoFP1qVvEBaAZ",
-    "ERNIE_SECRET_KEY":"JFKoy7JdYYAL0lCSrfthnS0pc55g5Yav",
-    "DEEPSEEK_KEY":"sk-9c15b4993069425a95ffd55a4d245a27",
+    "ERNIE_API_KEY":"",
+    "ERNIE_SECRET_KEY":"",
+    "DEEPSEEK_KEY":"",
     "model_path":".\\live2d\\MAOMAO\\MAOMAO.model3.json"
 }

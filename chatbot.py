@@ -5,7 +5,7 @@ import live2d_test
 import waver,webbrowser,json
 config = json.load(open('config.json','r',encoding='utf-8'))
 #ernie_bot.init()
-bot = pychatbot.pychatbot('neko')
+bot = pychatbot.pychatbot(config['prompt'])
 bot.init()
 def play_audio(stop_audio):
     try:
@@ -20,19 +20,12 @@ def play_audio(stop_audio):
     except:
         pass
 stop_audio = threading.Event()
-net = False
 audio = True
 def random_response(message, history):
-    global net,audio,bot
+    global audio,bot
     try:
         stop_audio.set()
         if message[0] == '#':
-            if message == '#net set on':
-                net = True
-                return f'[info]网络已启用'
-            if message == '#net set off':
-                net = False
-                return f'[info]网络已关闭'
             if message == '#voice set on':
                 audio = True
                 return f'[info]语音已启用'

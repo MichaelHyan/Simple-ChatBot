@@ -72,7 +72,7 @@ python chatbot.py
 ```
 "prompt":"你的人设",
 ```
-人设默认为增强版猫娘，由zzZZSTstt~~(调教)~~编辑
+人设默认为增强版猫娘，由zzZZSTstt(调教)编辑
 
 更换模型
 
@@ -91,7 +91,7 @@ python chatbot.py
 #### 声音
 暂时使用edge_tts 的zh-CN-XiaoyiNeurral
 
-由于so-vits-svc等消耗性格过大~~(我电脑带不动)~~，未加入声音克隆功能
+由于so-vits-svc等消耗性格过大(我电脑带不动)，暂时未加入声音克隆功能
 
 ### 独立功能
 pychatbot.py可作为独立模块使用

@@ -3,10 +3,11 @@ import waver
 from pygame.locals import *
 import live2d.v3 as live2d
 from live2d.v3 import StandardParams
-from live2d.utils import log
-from live2d.utils.lipsync import WavHandler
-with open('config.json') as f:
-    path = json.load(f)['model_path']
+from live2d.utils.image import Image
+with open('config.json',encoding='utf-8') as f:
+    config = json.load(f)
+path = config['model_path']
+bak = config['background_path']+config['background']
 live2d.setLogEnable(False)
 vol = 0
 wav = []
@@ -17,7 +18,7 @@ def main():
     pygame.mixer.init()
     live2d.init()
     display = (500, 600)
-    screen = pygame.display.set_mode(display, DOUBLEBUF | OPENGL)
+    pygame.display.set_mode(display, pygame.DOUBLEBUF | pygame.OPENGL)
     pygame.display.set_caption("pygame window")
     if live2d.LIVE2D_VERSION == 3:
         live2d.glewInit()
@@ -30,7 +31,7 @@ def main():
     scale: float = 1.0
     model.SetAutoBlinkEnable(True)
     model.SetAutoBreathEnable(True)
-
+    background = Image(os.path.join(bak))
     fc = None
     sc = None
     model.StartRandomMotion("TapBody", 30, sc, fc)
@@ -93,6 +94,7 @@ def main():
         model.SetOffset(dx, dy)
         model.SetScale(scale)        
         live2d.clearBuffer(1,1,1,0)
+        background.Draw()
         model.Draw()
         pygame.display.flip()
         pygame.time.wait(10)

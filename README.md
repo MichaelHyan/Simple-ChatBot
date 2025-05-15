@@ -11,6 +11,14 @@ live2D角色展示（可更换）
 
 语音回复
 
+### 原理
+
+使用API接入文心一言或deepseek
+
+tts功能来自edge_tts
+
+前端由gradio和pygame live2d-py处理
+
 ### 环境
 python 3.8以上
 
@@ -91,6 +99,21 @@ python chatbot.py
 ```
 "model_path":".\\live2d\\MAOMAO\\MAOMAO.model3.json"
 ```
+
+#### 更换背景
+
+将待更改图片转换为400*500的尺寸
+
+放入.\\pic\\文件夹
+
+修改config.json
+
+```
+"background_path":".\\pic\\",       #为了稳定尽量放这，别的地方也行
+"background":"bak0.jpg",            #改成你的图片的名字
+```
+
+p.s.live2d-py作者写的图片加载模块有问题，载入png图片会上下颠倒(因为他的纹理加载模块只对jpg做了处理，png的uv坐标y轴是反的，如果需要可以用我修改的模块)
 
 #### 声音
 暂时使用edge_tts 的zh-CN-XiaoyiNeurral

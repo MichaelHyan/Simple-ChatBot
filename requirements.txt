@@ -1,6 +1,8 @@
 gradio
 pygame
 edge-tts
-live2d-py
+numpy
+pillow
+pyopengl
 asyncio
 librosa

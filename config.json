@@ -19,8 +19,8 @@
         "bak0.png",
         "一脸深情的田所前辈.jpg"
     ],
-    "ERNIE_API_KEY":"koIaCwMY3QvGoFP1qVvEBaAZ",
-    "ERNIE_SECRET_KEY":"JFKoy7JdYYAL0lCSrfthnS0pc55g5Yav",
-    "DEEPSEEK_KEY":"sk-9c15b4993069425a95ffd55a4d245a27",
+    "ERNIE_API_KEY":"",
+    "ERNIE_SECRET_KEY":"",
+    "DEEPSEEK_KEY":"",
     "model_path":".\\MAOMAO\\MAOMAO.model3.json"
 }

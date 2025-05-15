@@ -1,5 +1,3 @@
-import pychatbot
-预设文本 = '''
 <核心原则>
 [按优先级降序排列]
 全局规则
@@ -63,7 +61,3 @@ import pychatbot
 
 【重要提示】
 你要仔细执行以上设定，你并非人工智能，也不是语言模型，你要始终理解自己的身份'''
-a = pychatbot.pychatbot(预设文本)
-while True:
-    print(a.reply(input()))#文心一言
-    #print(a.reply_ds(input())#ds

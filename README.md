@@ -84,7 +84,7 @@ python chatbot.py
 
 将人设文本放入任意文本文件，并把文件拖到prompt_loader.py中，运行即可
 
-人设默认为增强版猫娘，由zzZZSTstt(调教)编辑
+人设默认为增强版猫娘，由zzZZSTstt~~调教~~编辑
 
 #### 更换模型
 
@@ -143,7 +143,7 @@ bot.init()
 
 ```
 print(bot.reply('发送的信息'))   #文心一言模式
-print(bot.reply('发送的信息'))   #deepseek模式
+print(bot.reply_ds('发送的信息'))   #deepseek模式
 ```
 两种模式互不干扰，~~可以左右脑互博~~，根据需要调用
 

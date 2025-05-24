@@ -72,6 +72,33 @@ class pychatbot:
         msg = msg.replace('```', '').replace('#', '').replace('*', '').replace('\n\n','\n').replace('\n\n','\n')
         return msg
     
+    def memory_save(self,str):
+        with open(str+'.json', 'w', encoding='utf-8') as f:
+            json.dump(self.memory, f, ensure_ascii=False, indent=4)
+        with open(str+'_ds.json', 'w', encoding='utf-8') as f:
+            json.dump(self.memory_ds, f, ensure_ascii=False, indent=4)
+        with open('memory_list.json','r', encoding='utf-8') as f:
+            memory_list = json.load(f)
+        if str not in memory_list['list']:
+            memory_list['list'].append(str)
+        with open('memory_list.json','w', encoding='utf-8') as f:
+            json.dump(memory_list, f, ensure_ascii=False, indent=4)
+
+    def memory_load(self,str):
+        try:
+            with open(str+'.json', 'r', encoding='utf-8') as f:
+                self.memory = json.load(f)
+            with open(str+'_ds.json', 'r', encoding='utf-8') as f:
+                self.memory_ds = json.load(f)
+            return True
+        except:
+            return False
+
+    def memory_list(self):
+        with open('memory_list.json','r', encoding='utf-8') as f:
+            memory_list = json.load(f)
+        return memory_list['list']
+    
     def init(self):#让记忆消失的魔法
         self.memory = {
                 "model":"ernie-4.5-8k-preview",

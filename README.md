@@ -65,9 +65,51 @@ python chatbot.py
 在对话框输入以下指令控制语音开/关
 
 ```
-#voice set on
-#voice set off
+#voice on
+#voice off
 ```
+
+#### 关闭/启用视线跟踪
+
+在对话框输入以下指令控制视线跟踪开/关
+
+```
+#trace on
+#trace off
+```
+
+#### 记忆控制
+
+支持将记忆保存在本地
+可随时调用
+
+保存记忆
+```
+#mem save [记忆名字]
+```
+
+加载记忆
+```
+#mem load [记忆名字]
+```
+
+查看记忆列表
+```
+#mem list
+```
+
+记忆初始化(清空)
+```
+#init
+```
+
+记忆会保存在本地的[记忆名].json中
+
+deepseek记忆和文心一言记忆不共享
+
+#### 模型设置
+在config.json中更改模型路径
+
 #### 更换人设
 人设可在prompts.json中编辑
 

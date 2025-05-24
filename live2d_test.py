@@ -11,6 +11,7 @@ bak = config['background_path']+config['background']
 live2d.setLogEnable(False)
 vol = 0
 wav = []
+trace = False
 #wav = waver.get_wave_max()
 def main():
     global vol,wav
@@ -42,7 +43,7 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
                 break
-            if event.type == pygame.MOUSEBUTTONDOWN:
+            if event.type == pygame.MOUSEBUTTONDOWN :
                 model.StartRandomMotion(priority=3)
 
             if event.type == pygame.KEYDOWN:
@@ -64,7 +65,7 @@ def main():
                 elif event.key == pygame.K_e:
                     model.ResetExpression()
 
-            if event.type == pygame.MOUSEMOTION:
+            if event.type == pygame.MOUSEMOTION and trace:
                 model.Drag(*pygame.mouse.get_pos())
         if not running:
             break

@@ -26,12 +26,33 @@ def random_response(message, history):
     try:
         stop_audio.set()
         if message[0] == '#':
-            if message == '#voice set on':
+            if message == '#init':
+                bot.init()
+                return f'[info]记忆已初始化'
+            if message == '#voice on':
                 audio = True
                 return f'[info]语音已启用'
-            if message == '#voice set off':
+            if message == '#voice off':
                 audio = False
                 return f'[info]语音已关闭'
+            if message == '#mem list':
+                return f'[info]记忆列表:\n{bot.memory_list()}'
+            if message == '#trace on':
+                live2d_test.trace = True
+                return f'[info]视线跟踪已启用'
+            if message == '#trace off':
+                live2d_test.trace = False
+                return f'[info]视线跟踪已关闭'
+            if '#mem save' in message:
+                message = message.split(' ')[-1]
+                bot.memory_save(message)
+                return f'[info]记忆[{message}]已保存'
+            if '#mem load' in message:
+                message = message.split(' ')[-1]
+                if bot.memory_load(message):
+                    return f'[info]记忆[{message}]已加载'
+                else:
+                    return f'[info]记忆加载失败'
             else:
                 return f'[info]未知命令'
         if 'ciallo' in message or 'Ciallo' in message or 'CIALLO' in message:

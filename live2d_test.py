@@ -8,6 +8,7 @@ with open('config.json',encoding='utf-8') as f:
     config = json.load(f)
 path = config['model_path']
 bak = config['background_path']+config['background']
+ver = config['version']
 live2d.setLogEnable(False)
 vol = 0
 wav = []
@@ -18,9 +19,9 @@ def main():
     pygame.init()
     pygame.mixer.init()
     live2d.init()
-    display = (500, 600)
-    pygame.display.set_mode(display, pygame.DOUBLEBUF | pygame.OPENGL)
-    pygame.display.set_caption("pygame window")
+    display = [500, 600]
+    pygame.display.set_mode(display, pygame.RESIZABLE | pygame.DOUBLEBUF | pygame.OPENGL)
+    pygame.display.set_caption(f"ChatBot {ver}")
     if live2d.LIVE2D_VERSION == 3:
         live2d.glewInit()
     model = live2d.LAppModel()
@@ -67,6 +68,9 @@ def main():
 
             if event.type == pygame.MOUSEMOTION and trace:
                 model.Drag(*pygame.mouse.get_pos())
+            if event.type == pygame.VIDEORESIZE:
+                pygame.display.set_mode(event.size, pygame.RESIZABLE | pygame.DOUBLEBUF | pygame.OPENGL)
+
         if not running:
             break
         model.Update()

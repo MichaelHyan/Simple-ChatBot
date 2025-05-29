@@ -1,0 +1,27 @@
+{
+    "version":"1.3.5",
+    "model":"deepseek",
+    "model_list":[
+        "deepseek",
+        "ernie_bot"
+    ],
+    "prompt":"neko",
+    "prompt_list":[
+        "none",
+        "standard",
+        "neko",
+        "neko_plus"
+    ],
+    "background_path":".\\pic\\",
+    "background":"bak0.jpg",
+    "background_list":[
+        "white.jpg",
+        "green.jpg",
+        "bak0.png",
+        "一脸深情的田所前辈.jpg"
+    ],
+    "ERNIE_API_KEY":"",
+    "ERNIE_SECRET_KEY":"",
+    "DEEPSEEK_KEY":"",
+    "model_path":".\\MAOMAO\\MAOMAO.model3.json"
+}

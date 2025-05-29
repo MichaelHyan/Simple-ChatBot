@@ -7,11 +7,11 @@ config = json.load(open('config.json','r',encoding='utf-8'))
 #ernie_bot.init()
 bot = pychatbot.pychatbot(config['prompt'])
 bot.init()
-def play_audio(stop_audio):
+def play_audio(stop_audio,path = 'output.mp3'):
     try:
         live2d_test.vol = 1
         pygame.mixer.init()
-        pygame.mixer.music.load('output.mp3')
+        pygame.mixer.music.load(path)
         pygame.mixer.music.play()
         while pygame.mixer.music.get_busy():
             time.sleep(1)
@@ -29,30 +29,50 @@ def random_response(message, history):
             if message == '#init':
                 bot.init()
                 return f'[info]记忆已初始化'
-            if message == '#voice on':
+            elif message == '#voice on':
                 audio = True
                 return f'[info]语音已启用'
-            if message == '#voice off':
+            elif message == '#voice off':
                 audio = False
                 return f'[info]语音已关闭'
-            if message == '#mem list':
+            elif message == '#mem list':
                 return f'[info]记忆列表:\n{bot.memory_list()}'
-            if message == '#trace on':
+            elif message == '#trace on':
                 live2d_test.trace = True
                 return f'[info]视线跟踪已启用'
-            if message == '#trace off':
+            elif message == '#trace off':
                 live2d_test.trace = False
                 return f'[info]视线跟踪已关闭'
-            if '#mem save' in message:
+            elif '#mem save' in message:
                 message = message.split(' ')[-1]
                 bot.memory_save(message)
                 return f'[info]记忆[{message}]已保存'
-            if '#mem load' in message:
+            elif '#mem load' in message:
                 message = message.split(' ')[-1]
                 if bot.memory_load(message):
                     return f'[info]记忆[{message}]已加载'
                 else:
                     return f'[info]记忆加载失败'
+            elif '#read' in message:
+                message = message.split(' ')[-1]
+                tts.bake(str(message),offset=4)
+                live2d_test.wav = waver.get_wave()
+                thread = threading.Thread(target=play_audio,args=(stop_audio,))
+                thread.start()
+                return f'[info]语音已生成'
+            elif message == '#help':
+                if audio:
+                    live2d_test.wav = waver.get_wave()
+                    thread = threading.Thread(target=play_audio,args=(stop_audio,'help.mp3'))
+                    thread.start()
+                return f'''[info]可用命令如下:
+                #init             记忆初始化
+                #voice on         语音启用
+                #voice off        语音关闭
+                #mem list         记忆列表
+                #mem save [name]  保存记忆
+                #mem load [name]  加载记忆
+                #read [text]      合成语音'''#这块现实极为诡异
             else:
                 return f'[info]未知命令'
         if 'ciallo' in message or 'Ciallo' in message or 'CIALLO' in message:

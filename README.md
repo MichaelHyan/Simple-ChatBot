@@ -11,6 +11,8 @@ live2D角色展示（可更换）
 
 语音回复
 
+语音输入
+
 ### 原理
 
 使用API接入文心一言或deepseek
@@ -42,11 +44,24 @@ deepseek开放平台
 
 获取后在项目根目录config.json文件中以下位置填写密钥
 
+注意：大模型接入和语音输入并不共享API KEY，需分别单独创建应用
+
+语音输入非必须
 
 ```
-"ERNIE_API_KEY":"",       #文心一言api key
-"ERNIE_SECRET_KEY":"",    #文心一言secret ket
-"DEEPSEEK_KEY":"",        #deepseek api key
+"ERNIE_API_KEY":"",           #文心一言api key
+"ERNIE_SECRET_KEY":"",        #文心一言secret ket
+"DEEPSEEK_KEY":"",            #deepseek api key
+"baidu_speech_API_KEY":"",    #百度语音转文字api，可选
+"baidu_speech_SECRET_KEY":""  #百度语音转文字api，可选
+```
+
+#### 设置模型
+
+支持文心一言和deepseek，在config.json中设置
+
+```
+"model":"deepseek"
 ```
 
 #### 运行
@@ -67,6 +82,17 @@ python chatbot.py
 ```
 #voice on
 #voice off
+```
+
+#### 语音输入
+
+可以语音输入，输入指令后进入5秒录音
+
+出于云服务性能，语音输入可能有较大偏差，尽可能做到吐字清晰无杂音
+
+```
+#vinput
+#v
 ```
 
 #### 关闭/启用视线跟踪

@@ -23,5 +23,7 @@
     "ERNIE_API_KEY":"",
     "ERNIE_SECRET_KEY":"",
     "DEEPSEEK_KEY":"",
-    "model_path":".\\MAOMAO\\MAOMAO.model3.json"
+    "model_path":".\\MAOMAO\\MAOMAO.model3.json",
+    "baidu_speech_API_KEY":"",
+    "baidu_speech_SECRET_KEY":""
 }

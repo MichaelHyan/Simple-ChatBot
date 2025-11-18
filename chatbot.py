@@ -1,7 +1,8 @@
-'''chatbot v1.3.2'''
+'''chatbot v1.4.5'''
 import gradio as gr
 import ernie_bot,pygame, time,tts,threading,pychatbot
 import live2d_test
+import recorder,speech_text,wavm4a
 import waver,webbrowser,json
 config = json.load(open('config.json','r',encoding='utf-8'))
 #ernie_bot.init()
@@ -35,6 +36,10 @@ def random_response(message, history):
             elif message == '#voice off':
                 audio = False
                 return f'[info]语音已关闭'
+            elif message == '#vinput':
+                message = voice_reg()
+            elif message == '#v':
+                message = voice_reg()
             elif message == '#mem list':
                 return f'[info]记忆列表:\n{bot.memory_list()}'
             elif message == '#trace on':
@@ -69,6 +74,7 @@ def random_response(message, history):
                 #init             记忆初始化
                 #voice on         语音启用
                 #voice off        语音关闭
+                #vinput 或 #v     语音输入
                 #mem list         记忆列表
                 #mem save [name]  保存记忆
                 #mem load [name]  加载记忆
@@ -92,6 +98,16 @@ def random_response(message, history):
         return msg
     except Exception as e:
         return f'错误信息:\n{e}'
+def voice_reg():
+    print('start recording')
+    recorder.record_audio(duration=5, filename='audio.wav', sample_rate=16000)
+    print('record finished, converting')
+    wavm4a.convert()
+    print('convertint to str')
+    spt = speech_text.speech_text()
+    res = str(spt.to_text('audio.m4a'))
+    print(f'result:{res}')
+    return res
 def clar(msg):
     temp = ''
     k = 1

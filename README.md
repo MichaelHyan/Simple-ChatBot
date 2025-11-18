@@ -64,6 +64,10 @@ deepseek开放平台
 "model":"deepseek"
 ```
 
+#### 设置ffmpeg
+
+下载release中的ffmpeg.zip，解压，将ffmpeg文件夹置于项目根目录
+
 #### 运行
 本地运行
 

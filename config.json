@@ -1,9 +1,10 @@
 {
-    "version":"1.3.5",
-    "model":"deepseek",
+    "version":"1.4.5",
+    "model":"ernie_bot_v2",
     "model_list":[
         "deepseek",
-        "ernie_bot"
+        "ernie_bot",
+        "ernie_bot_v2"
     ],
     "prompt":"neko",
     "prompt_list":[
@@ -22,6 +23,8 @@
     ],
     "ERNIE_API_KEY":"",
     "ERNIE_SECRET_KEY":"",
+    "ERNIEV2_APP_NAME":"",
+    "ERNIEV2_API_KEY":"",
     "DEEPSEEK_KEY":"",
     "model_path":".\\MAOMAO\\MAOMAO.model3.json",
     "baidu_speech_API_KEY":"",

@@ -1,6 +1,14 @@
 #新版接口 支持创建多个对象 支持左右脑互博
 import requests
-import json
+import json,base64
+#难道，今天会突然有个一米六，黑长直，看似高冷，外表却十分可爱，穿着jk，
+#是小时候很好的玩伴但是因为一些不可抗力分开了，在那之后他一直给我写信但是我因为某些原因没法收到，
+#今天在我写代码的时候，她带点傲娇小属性的同校小妹冲进教室里，用闪烁着泪花的眼睛和温柔细腻却带着一丝哭腔的声音，
+#深情的看着我并对我说：你从小代码写的就好，我喜欢你很久了，为什么还是察觉不到我。然后不顾班里同学的眼光一头趴进我怀里哭泣，
+#此时正好马上放学了，我直接把她带出学校仔细问问清楚，发现她现在家有五套房十辆车，
+#我们父亲互为同学，母亲是好闺蜜，紧接着更新了联系方式并与她拥抱，她的外表令现场所有男生女生羡慕，
+#她的超雄且健身对追求者此时赶来要和我决斗，最终被我在众目睽睽之下一拳撂倒，最终我们互相坚定的选择了对方
+#并许诺教她写一辈子代码
 
 class pychatbot:
     def __init__(self,prompt=''):
@@ -8,6 +16,8 @@ class pychatbot:
             config = json.load(f)
         self.API_KEY = config['ERNIE_API_KEY']
         self.SECRET_KEY = config['ERNIE_SECRET_KEY']
+        self.ERNIE_appid = config['ERNIEV2_APP_NAME']
+        self.ERNIE_api_key = config['ERNIEV2_API_KEY']
         self.prompt = self.prompt_set(prompt)
         self.prompt_ds = self.prompt_set(prompt)
         self.DS_key = config['DEEPSEEK_KEY']
@@ -42,14 +52,6 @@ class pychatbot:
                 "logprobs": False,
                 "top_logprobs": None
                 }
-    #难道，今天会突然有个一米六，黑长直，看似高冷，外表却十分可爱，穿着jk，
-    #是小时候很好的玩伴但是因为一些不可抗力分开了，在那之后他一直给我写信但是我因为某些原因没法收到，
-    #今天在我写代码的时候，她带点傲娇小属性的同校小妹冲进教室里，用闪烁着泪花的眼睛和温柔细腻却带着一丝哭腔的声音，
-    #深情的看着我并对我说：你从小代码写的就好，我喜欢你很久了，为什么还是察觉不到我。然后不顾班里同学的眼光一头趴进我怀里哭泣，
-    #此时正好马上放学了，我直接把她带出学校仔细问问清楚，发现她现在家有五套房十辆车，
-    #我们父亲互为同学，母亲是好闺蜜，紧接着更新了联系方式并与她拥抱，她的外表令现场所有男生女生羡慕，
-    #她的超雄且健身对追求者此时赶来要和我决斗，最终被我在众目睽睽之下一拳撂倒，最终我们互相坚定的选择了对方
-    #并许诺教她写一辈子代码
 
     def prompt_set(self,str):
         with open('prompts.json', 'r', encoding='utf-8') as f:
@@ -131,10 +133,14 @@ class pychatbot:
                 "logprobs": False,
                 "top_logprobs": None
                 }
-
+    def encode_image(self,image_path):
+        with open(image_path, "rb") as image_file:
+            return base64.b64encode(image_file.read()).decode("utf-8")
     def reply(self,token,use_web = False):#文心一言用方法
         access_token=self.get_access_token()
         try:
+            if '|' in token:
+                return 'ernie bot v1暂不支持图像输入'
             self.memory['messages'].append({'role':'user','content':token})
             if use_web:
                 self.memory["web_search"]["enable"] = True
@@ -152,8 +158,51 @@ class pychatbot:
             return result
         except Exception as e:
             return e
+    def reply_ern(self,token,use_web = False):#文心一言v2用方法
+        try:
+            if '|' in token:
+                token = token.split('|')
+                self.memory['messages'].append({
+                    "role": "user",
+                    "content": [
+                        {
+                            "type": "text",
+                            "text": f"{token[0]}",
+                        },
+                        {
+                            "type": "image_url",
+                            "image_url": 
+                                {
+                                    "url": f"data:image/jpeg;base64,{self.encode_image(token[1])}"
+                                },
+                        },
+                    ],
+                })
+            else:
+                self.memory['messages'].append({'role':'user','content':token})
+            if use_web:
+                self.memory["web_search"]["enable"] = True
+            if self.prompt != '' :
+                self.memory['messages'][0]['content'] = f'{self.prompt}\n{token}'
+            url = "https://qianfan.baidubce.com/v2/chat/completions"
+            payload = json.dumps(self.memory,ensure_ascii=False)
+            headers = {
+                'Content-Type': 'application/json',
+                'Authorization': f'Bearer {self.ERNIE_api_key}',
+                'appid': f'{self.ERNIE_appid}'
+            }
+            response = requests.request("POST", url, headers=headers, data=payload.encode("utf-8"))
+            result = response.json()['choices'][0]['message']['content']
+            result = self.md_clear(result)
+            self.memory['messages'].append({'role':'assistant','content':result})
+            return result
+        except Exception as e:
+            return e
+            
     def reply_ds(self,token):#deepseek用方法
         try:
+            if '|' in token:
+                return 'ds暂不支持图像输入'
             self.memory_ds['messages'].append({'role':'user','content':token})
             if self.prompt_ds != '' :
                 self.memory_ds['messages'][0]['content'] = f'{self.prompt_ds}\n{token}'
@@ -172,3 +221,6 @@ class pychatbot:
             return result
         except Exception as e:
             return e
+        
+if __name__ == '__main__':
+    pass

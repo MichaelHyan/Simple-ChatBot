@@ -89,6 +89,8 @@ def random_response(message, history):
             msg = bot.reply_ds(message)
         elif config['model'] == 'ernie_bot':
             msg = bot.reply(message)
+        elif config['model'] == 'ernie_bot_v2':
+            msg = bot.reply_ern(message)
         msga = clar(msg)
         if audio:
             tts.bake(str(msga),offset=4)
